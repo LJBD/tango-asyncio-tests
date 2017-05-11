@@ -12,6 +12,11 @@ class AsyncioDevice(Device):
 
     @command
     async def long_running_command(self):
+        loop = asyncio.get_event_loop()
+        future = loop.create_task(self.coroutine_target())
+        return
+
+    async def coroutine_target(self):
         self.set_state(DevState.INSERT)
         await asyncio.sleep(15)
         if self.get_state() == DevState.INSERT:
