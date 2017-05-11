@@ -26,4 +26,5 @@ class AsyncioDevice(Device):
 
     @attribute
     async def test_attribute(self):
+        await asyncio.sleep(2)
         return 42
