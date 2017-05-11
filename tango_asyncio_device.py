@@ -14,7 +14,10 @@ class AsyncioDevice(Device):
     async def long_running_command(self):
         self.set_state(DevState.INSERT)
         await asyncio.sleep(15)
-        self.set_state(DevState.EXTRACT)
+        if self.get_state() == DevState.INSERT:
+            self.set_state(DevState.EXTRACT)
+        else:
+            self.set_state(DevState.INSERT)
 
     @attribute
     async def test_attribute(self):
